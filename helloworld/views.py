@@ -6,6 +6,16 @@ from django.contrib.auth.models import User
 import random
 from django import template
 from django.template.loader import get_template 
+from guestbook.models import TextMessage
+
+def index(request):
+
+	t1 = TextMessage.object.create(talker = "will", message = "i am the founder")
+	t2 = TextMessage.object.create(talker = "jennifer", message = "i am the cofounder")
+	t3 = TextMessage.object.create(talker = "tim", message = "i am nobody")
+
+	msgs = TextMessage.objects.all()
+	return render(request, 'guestbookver1.html',locals())
 random.seed('foobar')     # 設定 random seed
 def index(request):
 	templates = get_template('guestbookver1.html')
