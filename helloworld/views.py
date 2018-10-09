@@ -9,14 +9,19 @@ from django.template.loader import get_template
 from guestbook.models import TextMessage
 
 def index(request):
+	
+	t1 = TextMessage.objects.create(talker = "will", message = "imwill")
+	t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
+	t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
+	
+	msgs1 = TextMessage.objects.all()
+	msgs = {"msgslist" : msgs1}
+	return render(request, 'guestbookver1.html',msgs)
 
-	t1 = TextMessage.object.create(talker = "will", message = "i am the founder")
-	t2 = TextMessage.object.create(talker = "jennifer", message = "i am the cofounder")
-	t3 = TextMessage.object.create(talker = "tim", message = "i am nobody")
-
-	msgs = TextMessage.objects.all()
-	return render(request, 'guestbookver1.html',locals())
+"""
+隨機圖片碼
 random.seed('foobar')     # 設定 random seed
+
 def index(request):
 	templates = get_template('guestbookver1.html')
 	urllist = []
@@ -28,4 +33,5 @@ def index(request):
 		urllist.append(url)
 		context = { "urllist" : urllist}
 	return render(request, 'guestbookver1.html',context) #一定要按照順序
+"""
 
