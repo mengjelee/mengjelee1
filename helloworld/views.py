@@ -14,9 +14,8 @@ def index(request):
 	t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
 	t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
 	
-	msgs1 = TextMessage.objects.all()
-	msgs = {"msgslist" : msgs1}
-	return render(request, 'guestbookver1.html',msgs)
+	msgs = TextMessage.objects.all()
+	return render(request, 'guestbookver1.html',locals())
 
 """
 隨機圖片碼

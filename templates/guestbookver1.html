@@ -14,7 +14,12 @@
     <h1>歡迎來到孟哲網站T</h1>
     <h2>這周來看個database們<br>
     </h2>
-    <p> {{msgslist}} </p>
+    {% for msg in msgs %} 
+        <div class = "msg">
+            <p style="text-align:center;"> {{msg}}</p>
+        <div>
+    {% endfor %}
+
     <!--
     {% for url in urllist %}
         <img src={{url}} alt="random pic1">
