@@ -10,10 +10,12 @@ from guestbook.models import TextMessage
 
 def index(request):
 	
-	t1 = TextMessage.objects.create(talker = "will", message = "imwill")
-	t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
-	t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
-	
+	#t1 = TextMessage.objects.create(talker = "will", message = "imwill")
+	#t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
+	#t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
+	talker = request.POST.get('name',False)
+	message = request.POST.get('msg',False)
+	TextMessage.objects.create(talker = talker, message = message)
 	msgs = TextMessage.objects.all()
 	return render(request, 'guestbookver1.html',locals())
 

@@ -14,13 +14,12 @@
     <h1>歡迎來到孟哲網站T</h1>
     <h2>這周來看個database們<br>
     </h2>
-    <!--
     {% for msg in msgs %} 
         <div class = "msg">
             <p style="text-align:center;"> {{msg}}</p>
         <div>
     {% endfor %}
-    -->
+
     <!--
     {% for url in urllist %}
         <img src={{url}} alt="random pic1">
@@ -33,27 +32,32 @@
     <video src="https://www.youtube.com/watch?v=5KB_i1nE6Uw" width="400" height="300" controls>
         here should be a videoQQ
     </video>
-    
-    <iframe width="700" height="394" src="https://www.youtube.com/embed/YkLyTXJYwgI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     -->
+<!--
+    <iframe width="700" height="394" src="https://www.youtube.com/embed/YkLyTXJYwgI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
     <div id="container">
         <div id="content">
-            {% for msg in msgs %}
-                <p> {{msg}} <p>
-                
-            {% endfor %}
+            <div class="msg">
+                <span class="name">Pecu</span>
+                Hello,Class!
 
+            </div>
+            <div class="msg">
+                <span class="name">Michael</span>
+                Hello,Pecu.
+            </div>
         </div>
         <div id="send-box">
-            <form action = "" target = "_top" id="send-form" method="POST">
-                <input type="text" name="name" id="name" placeholder="暱稱">
-                <input type="text" name="msg" id="msg" placeholder="說點什麼？">
+            <form id="send-form">
+                <input type="text" name="name" id="name1" placeholder="暱稱">
+                <input type="text" name="msg" id="msg1" placeholder="說點什麼？">
                 <input type="submit" id="submit" value="送出">
             </form>
+            <span id='ps'>Ps:格子是假的，無法輸入ＸＤ</span>
         </div>
-
     </div>
+-->
 </body>
 
 </html>
