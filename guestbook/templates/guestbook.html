@@ -12,13 +12,12 @@
 
 <body style="background-color: #FFFF78  ;">
     <h1>歡迎來到孟哲網站T</h1>
-    <h2>這周來看個database們<br>
+    <h2>這是首頁<br>
     </h2>
-    {% for msg in msgs %} 
-        <div class = "msg">
-            <p style="text-align:center;"> {{msg}}</p>
-        <div>
-    {% endfor %}
+    <form action = "guestbook/" target = "_top" method="POST">
+        <input type="submit" id="submit" value="留言板">
+    </form>
+
 
     <!--
     {% for url in urllist %}

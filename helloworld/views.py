@@ -13,9 +13,11 @@ def index(request):
 	#t1 = TextMessage.objects.create(talker = "will", message = "imwill")
 	#t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
 	#t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
-	talker = request.POST.get('name',False)
-	message = request.POST.get('msg',False)
-	TextMessage.objects.create(talker = talker, message = message)
+	if 'name' in request.POST:
+		talker = request.POST['name']
+		if 'msg' in request.POST:
+			message = request.POST['msg']
+			TextMessage.objects.create(talker = talker, message = message)
 	msgs = TextMessage.objects.all()
 	return render(request, 'guestbookver1.html',locals())
 

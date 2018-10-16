@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.conf.urls import url,include
 from django.urls import path
 from . import views
+from guestbook.views import guestbook_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
-    path('guestbook/', include('guestbook.urls')),
+    path('guestbook/', views.index),
+    path('', guestbook_list),
 
 ]
