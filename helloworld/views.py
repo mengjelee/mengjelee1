@@ -7,6 +7,7 @@ import random
 from django import template
 from django.template.loader import get_template 
 from guestbook.models import TextMessage
+from guestbook.models import UserData
 
 def index(request):
 	
@@ -19,6 +20,13 @@ def index(request):
 			message = request.POST['msg']
 			TextMessage.objects.create(talker = talker, message = message)
 	msgs = TextMessage.objects.all()
+	return render(request, 'guestbookver1.html',locals())
+
+def index1(request):
+	
+	UserData.objects.create(username = "will", password = "imwill")
+	UserData.objects.create(username = "jennifer", password = "imjen")
+	userdatas = UserData.objects.all()
 	return render(request, 'guestbookver1.html',locals())
 
 """
