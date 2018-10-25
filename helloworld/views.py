@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from guestbook.models import TextMessage
 from guestbook.models import UserData
 
+
 def index(request):
 	
 	#t1 = TextMessage.objects.create(talker = "will", message = "imwill")
@@ -19,17 +20,74 @@ def index(request):
 		if 'msg' in request.POST:
 			message = request.POST['msg']
 			TextMessage.objects.create(talker = talker, message = message)
-	msgs = TextMessage.objects.all()
-	return render(request, 'guestbookver1.html',locals())
-
-def index1(request):
+			msgs = TextMessage.objects.all()
+			userdatas = UserData.objects.all()
+			return render(request, 'guestbookver1.html',locals())
+	if 'uname' in request.POST:
+		username = request.POST['uname']
+		if 'psw' in request.POST:
+			password = request.POST['psw']
+			#signindata = str(username) + str(password)
+			#userdatas = UserData.objects.all()	
+			if username == str(123):
+				if password == str(456):
+					msgs = TextMessage.objects.all()
+					userdatas = UserData.objects.all()
+					return render(request, 'guestbookver1.html',locals())
+				else:
+					return HttpResponse("密碼錯誤")
+			else:
+				return HttpResponse("您尚未註冊")
 	
-	UserData.objects.create(username = "will", password = "imwill")
-	UserData.objects.create(username = "jennifer", password = "imjen")
+
+def signup(request):
+	if 'suname' in request.POST:
+		susername = request.POST['suname']
+		if 'spsw' in request.POST:
+			spassword = request.POST['spsw']
+			UserData.objects.create(username = susername, password = spassword)
 	userdatas = UserData.objects.all()
-	return render(request, 'guestbookver1.html',locals())
+	return HttpResponse("您已成功註冊")
+
+def signin(request):
+	userdatas = UserData.objects.all()
+	msgs = TextMessage.objects.all()
+	#suserdatas = UserData.objects.all()
+	if 'uname' in request.POST:
+		username = request.POST['uname']
+		if 'psw' in request.POST:
+			password = request.POST['psw']
+			#signindata = str(username) + str(password)
+			#userdatas = UserData.objects.all()	
+			if username == str(123):
+				if password == str(456):
+					return render(request, 'guestbookver1.html',locals())
+				else:
+					return HttpResponse("密碼錯誤")
+			else:
+				return HttpResponse("您尚未註冊")
 
 """
+...
+def login(request):
+
+    if request.user.is_authenticated(): 
+        return render(request, 'guestbookver1.html',locals())
+
+    username = request.POST['uname']
+    password = request.POST['psw']
+    
+    user = auth.authenticate(username=username, password=password)
+
+    if user is not None and user.is_active:
+        auth.login(request, user)
+        return render(request, 'guestbookver1.html',locals())
+    else:
+        return HttpResponse("密碼錯誤")
+
+
+
+
 隨機圖片碼
 random.seed('foobar')     # 設定 random seed
 

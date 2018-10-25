@@ -18,10 +18,17 @@ from django.conf.urls import url,include
 from django.urls import path
 from . import views
 from guestbook.views import guestbook_list
+from helloworld.views import signup
+from helloworld.views import signin
+#from helloworld.views import login
+#from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('guestbook/', views.index),
     path('', guestbook_list),
+    path('successsignup/',signup),
+    path('successsignin/',signin),
+
 
 ]

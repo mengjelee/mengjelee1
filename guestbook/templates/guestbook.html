@@ -134,11 +134,11 @@
     <h2>這是首頁<br>
     </h2>
 
-	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">signup</button>
 
 	<div id="id01" class="modal">
 	  
-      <form class="modal-content animate" action="/action_page.php">
+      <form action = "successsignup/" class="modal-content animate"  method="POST">
       	<!--
         <div class="imgcontainer">
 	      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -146,14 +146,14 @@
         </div>
     	-->
 
-        <div class="container" method="POST">
+        <div class="container">
           <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
+          <input type="text" placeholder="Enter Username" name="suname" required>
 
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+          <input type="password" placeholder="Enter Password" name="spsw" required>
             
-          <button type="submit">Login</button>
+          <button type="submit" >Signup</button>
           <!--
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
@@ -173,6 +173,56 @@
     <script>
     // Get the modal
     var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+
+
+    <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">signin</button>
+
+    <div id="id02" class="modal">
+      
+      <form action = "guestbook/" class="modal-content animate"  method="POST">
+        <!--
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+        -->
+
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+            
+          <button type="submit" >Login</button>
+          <!--
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+          -->
+        </div>
+        <!--        
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+        -->
+      </form>
+    </div>
+    <p>預設密碼為123,456</p>
+
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id02');
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -224,6 +274,18 @@
             <span id='ps'>Ps:格子是假的，無法輸入ＸＤ</span>
         </div>
     </div>
+
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+{% endblock %}
 -->
 </body>
 
