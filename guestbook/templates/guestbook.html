@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>奶油獅食牛奶</title>
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+
     <style> 
     /* Full-width input fields */
     input[type=text], input[type=password] {
@@ -133,40 +134,39 @@
     <h1>歡迎來到孟哲網站T</h1>
     <h2>這是首頁<br>
     </h2>
-
-	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">signup</button>
+<!--
+	<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">login</button>
 
 	<div id="id01" class="modal">
 	  
-      <form action = "successsignup/" class="modal-content animate"  method="POST">
-      	<!--
+      <form action = "account/" class="modal-content animate"  method="POST">
+      	
         <div class="imgcontainer">
 	      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 	      <img src="img_avatar2.png" alt="Avatar" class="avatar">
         </div>
-    	-->
+    	
 
         <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="suname" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="spsw" required>
-            
-          <button type="submit" >Signup</button>
-          <!--
+            <label for="username">用戶名稱:</label>
+            <input type="text" name="username" value="" id="usernamel"> <br />
+            <label for="password">用戶密碼:</label>
+            <input type="password" name="password" value="" id="passwordl"> <br />
+            <input type="submit" value="登入" />
+    
+          
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
-          -->
+          
         </div>
-        <!--        
+                
         <div class="container" style="background-color:#f1f1f1">
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
         
           <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
-        -->
+    
       </form>
     </div>
 
@@ -183,42 +183,26 @@
     </script>
 
 
-    <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">signin</button>
+    <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">register</button>
 
     <div id="id02" class="modal">
       
-      <form action = "guestbook/" class="modal-content animate"  method="POST">
-        <!--
+      <form action = "" class="modal-content animate"  method="POST">
+      
         <div class="imgcontainer">
-          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
         </div>
-        -->
-
-        <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-            
-          <button type="submit" >Login</button>
-          <!--
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-          -->
+        <div class="container">    
+            <label for="username">用戶名稱:</label>
+            <input type="text" name="username" value="" id="username"> <br />
+            <label for="password">用戶密碼:</label>
+            <input type="password" name="password" value="" id="password"> <br />
+            <input type="submit" value="註冊">
+          
         </div>
-        <!--        
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
         
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-        -->
       </form>
     </div>
-    <p>預設密碼為123,456</p>
 
     <script>
     // Get the modal
@@ -231,9 +215,19 @@
         }
     }
     </script>
+-->
+    <h2>Sign up</h2>
+    <form action="signup/" method="post">
+        <label for="username">用戶名稱:</label>
+        <input type="text" name="username" value="" id="username"> <br />
+        <label for="password">用戶密碼:</label>
+        <input type="password" name="password" value="" id="password"> <br />
+        <button type="submit">Sign up</button>
+    </form>
         <form action = "guestbook/" target = "_top" method="POST">
             <input type="submit" id="submit" value="留言板">
         </form>
+
 
 
     <!--
@@ -274,19 +268,8 @@
             <span id='ps'>Ps:格子是假的，無法輸入ＸＤ</span>
         </div>
     </div>
-
-
-{% block title %}Login{% endblock %}
-
-{% block content %}
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-{% endblock %}
 -->
+
 </body>
 
 </html>

@@ -13,7 +13,24 @@
 <body style="background-color: #FFFF78  ;">
     <h1>歡迎來到孟哲網站T</h1>
     <h2>這周來看個database們<br>
-    </h2>
+    </h2>        
+    <div id="container">
+    <div id="content">
+        {% for msg in msgs %}
+            <p> {{msg}} <p>
+                    
+        {% endfor %}
+
+            </div>
+            <div id="send-box">
+                <form action = "" target = "_top" id="send-form" method="POST">
+                    <input type="text" name="name" id="name" placeholder="暱稱">
+                    <input type="text" name="msg" id="msg" placeholder="說點什麼？">
+                    <input type="submit" id="submit" value="送出">
+                </form>
+            </div>
+        </div>
+
     <!--
     {% for msg in msgs %} 
         <div class = "msg">
@@ -35,36 +52,12 @@
     </video>
     
     <iframe width="700" height="394" src="https://www.youtube.com/embed/YkLyTXJYwgI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    -->
-    
-    {% for userdata in userdatas %}
-        <p> {{userdata}} <p>
-    {% endfor %}
-    
-    <div id="container">
-        <div id="content">
-            {% for msg in msgs %}
-                <p> {{msg}} <p>
-                
-            {% endfor %}
 
-        </div>
-        <div id="send-box">
-            <form action = "" target = "_top" id="send-form" method="POST">
-                <input type="text" name="name" id="name" placeholder="暱稱">
-                <input type="text" name="msg" id="msg" placeholder="說點什麼？">
-                <input type="submit" id="submit" value="送出">
-            </form>
-        <!--
-        <div>
-            <form action = "" target = "guestbook_list" method="POST">
-                <input type="submit" id="submit" value="回首頁">
-            </form> 
-        </div>
-    -->
+    
         </div>
 
     </div>
+    -->
 </body>
 
 </html>

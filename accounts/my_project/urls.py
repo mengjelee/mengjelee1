@@ -1,4 +1,4 @@
-"""helloworld URL Configuration
+"""my_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -14,20 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls import url,include
 from django.urls import path
-from . import views
-from guestbook.views import guestbook_list
-from helloworld.views import login
-#from helloworld.views import register
-from helloworld.views import signup
-#from helloworld.views import login
-#from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('guestbook/', views.index),
-    path('signup/', views.signup),
-    path('', guestbook_list),
-
 ]
