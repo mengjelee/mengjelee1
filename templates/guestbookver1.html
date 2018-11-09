@@ -16,20 +16,28 @@
     </h2>        
     <div id="container">
     <div id="content">
+        {% if request.user.is_authenticated %}
+            <p>{{request.user}} 您已經登入囉</p>
+            <a href="/logout/">
+            <button>登出</button>
+            </a>
+        
         {% for msg in msgs %}
-            <p> {{msg}} <p>
-                    
+            <p> {{msg}} <p>                    
         {% endfor %}
-
-            </div>
-            <div id="send-box">
-                <form action = "" target = "_top" id="send-form" method="POST">
-                    <input type="text" name="name" id="name" placeholder="暱稱">
-                    <input type="text" name="msg" id="msg" placeholder="說點什麼？">
-                    <input type="submit" id="submit" value="送出">
-                </form>
-            </div>
+        <div id="send-box">
+            <form action = "/guestbook/" target = "_top" id="send-form" method="POST">
+                <p>{{request.user}} :</p>
+                <input type="text" name="msg" id="msg" placeholder="說點什麼？">
+                <input type="submit" id="submit" value="送出">
+            </form>
         </div>
+        {% else %}
+            <p>您尚未登入喔~</p>
+        {% endif %}
+
+        </div>      
+    </div>
 
     <!--
     {% for msg in msgs %} 

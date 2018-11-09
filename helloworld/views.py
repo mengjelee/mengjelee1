@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.http import HttpResponseRedirect
 import random
 from django import forms
 from django import template
@@ -16,101 +17,69 @@ def index(request):
 	#t1 = TextMessage.objects.create(talker = "will", message = "imwill")
 	#t2 = TextMessage.objects.create(talker = "jennifer", message = "imjen")
 	#t3 = TextMessage.objects.create(talker = "tim", message = "iamnobody")
-	if 'name' in request.POST:
-		talker = request.POST['name']
-		if 'msg' in request.POST:
-			message = request.POST['msg']
-			TextMessage.objects.create(talker = talker, message = message)
-			msgs = TextMessage.objects.all()
-			return render(request, 'guestbookver1.html',locals())
+	talker = request.user
+	if 'msg' in request.POST:
+		message = request.POST['msg']
+		TextMessage.objects.create(talker = talker, message = message)
+	msgs = TextMessage.objects.all()
+	return render(request, 'guestbookver1.html',locals())
 
-	
 def login(request):
-	if 'username' in request.POST:
-		username = request.POST['username']
-		if 'password' in request.POST:
-			password = request.POST['password']
-    #username = request.POST.get('usernamel', '')
-    #password = request.POST.get('passwordl', '')
-			print(username)
-			print(password)
-		    
-			user = auth.authenticate(username=username, password=password)
-			print(user)
-
-			if user is not None:
-				auth.login(request, user)
-				return render(request, 'guestbookver1.html',locals())
-			else:
-				return HttpResponse('尚未登入')
-
+    msgs = TextMessage.objects.all()
+    if request.user.is_authenticated: 
+        print("t1")
+        return render(request, 'guestbookver1.html',locals())
+    if request.method == 'POST':
+        if 'username' in request.POST:
+            print("t2")
+            username = request.POST['username']
+            if 'password' in request.POST:
+                password = request.POST['password']
+                user = auth.authenticate(username=username, password=password)
+                auth.login(request,user)
+                print("8")
+                if user is not None:
+                    if user.is_active:
+                        auth.login(request,user)
+                        print("成功登入")
+                    else:
+                       return HttpResponse('尚未登入')
+                else:
+                   return HttpResponse('登入失敗!')
+    return render(request, 'guestbookver1.html',locals())
 def logout(request):
     auth.logout(request)
-    return render(request, 'guestbookver1.html',locals())
+    return redirect('/')
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            print("1")
-            return HttpResponse('/guestbook/')
-        else:
-            form = UserCreationForm()
-            print("2")
-    return render(request, 'guestbook.html', {'form': form})
-
+        if 'username' in request.POST:
+            username = request.POST['username']
+            if 'password' in request.POST:
+                password = request.POST['password']
+                if 'email' in request.POST:
+                    email = request.POST['email']
+                    #form = UserCreationForm(request.POST)
+                    print("0")
+                    try:
+                        user = User.objects.get(username=username)
+                    except:
+                        user = None
+                        print("user is None")
+                    if user is None:
+                        user = User.objects.create_user(username,email, password)
+                        user.save()
+                        message = "註冊成功"
+                        print("3")
+                    else:
+                        message = '此使用者已經有人使用'
+                        print("4")                  
+    return render(request, 'guestbookver1.html',locals())
+                        #else:
+                    #form = UserCreationForm()
+                    #print("2")
+    #return render(request, 'guestbook.html', {'form': form})
 """
-def signup(request):
-	if 'suname' in request.POST:
-		susername = request.POST['suname']
-		if 'spsw' in request.POST:
-			spassword = request.POST['spsw']
-			UserData.objects.create(username = susername, password = spassword)
-	userdatas = UserData.objects.all()
-	return HttpResponse("您已成功註冊")
-
-def signin(request):
-	userdatas = UserData.objects.all()
-	msgs = TextMessage.objects.all()
-	#suserdatas = UserData.objects.all()
-	if 'uname' in request.POST:
-		username = request.POST['uname']
-		if 'psw' in request.POST:
-			password = request.POST['psw']
-			#signindata = str(username) + str(password)
-			#userdatas = UserData.objects.all()
-			username_c = UserData.objects.get(username = str(username))
-			if username in username_c:
-				return render(request, 'guestbookver1.html',locals())
-			else:
-				return HttpResponse("您尚未註冊或密碼錯誤")
-
-
-...
-def login(request):
-
-    if request.user.is_authenticated(): 
-        return render(request, 'guestbookver1.html',locals())
-
-    username = request.POST['uname']
-    password = request.POST['psw']
-    
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return render(request, 'guestbookver1.html',locals())
-    else:
-        return HttpResponse("密碼錯誤")
-
-
-
-
 隨機圖片碼
 random.seed('foobar')     # 設定 random seed
 

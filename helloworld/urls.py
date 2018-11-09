@@ -18,7 +18,7 @@ from django.conf.urls import url,include
 from django.urls import path
 from . import views
 from guestbook.views import guestbook_list
-from helloworld.views import login
+from helloworld.views import login,logout
 #from helloworld.views import register
 from helloworld.views import signup
 #from helloworld.views import login
@@ -29,5 +29,8 @@ urlpatterns = [
     path('guestbook/', views.index),
     path('signup/', views.signup),
     path('', guestbook_list),
+    path('login/', views.login),
+    path('logout/', views.logout),
+
 
 ]
