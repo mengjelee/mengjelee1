@@ -20,7 +20,7 @@ from . import views
 from guestbook.views import guestbook_list
 from helloworld.views import login,logout
 #from helloworld.views import register
-from helloworld.views import signup
+from helloworld.views import signup,personalpage
 #from helloworld.views import login
 #from django.contrib.auth import views as auth_views
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path('', guestbook_list),
     path('login/', views.login),
     path('logout/', views.logout),
+    path('personalpage/', views.personalpage),
 
 
 ]

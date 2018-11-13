@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+{% load  staticfiles %}
+<head>
+
+    <div id="T2B"></div>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>個人頁面</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    {%if request.user.is_authenticated%}
+    <ul>
+        <li><a href="/logout/">登出</a></li>
+        <li><a href="/guestbook/">留言區</a></li>
+    </ul>
+    {% if sender %}
+    <span>hi,{{sender}}</span>
+    <form action="." method="POST">
+        <input type="text" id="search" name="talk" placeholder="Search Message"><br>
+        <input type="hidden" name="search" value="search">
+        <input type="hidden" value={{sender}} name="sender">
+        <input type="submit" name="search" value="搜尋">
+    </form>
+    {% endif %}
+    <table>
+        <tr>
+            <th>留言板</th>
+            <th>留言</th>
+            <th>編輯新留言</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% if error %}
+        <span>{{error}}</span> {% endif %} 
+        {%for a in conversation%}
+
+        <tr>
+            <td>{{sender}}</td>
+            <td>{{a.message}}</td>
+            <td>
+                <form action="/personalpage/" method="POST" onsubmit="return confirm('Do you really want to edit?');">
+                    <input type="text" name="newtalk" placeholder="更改新留言" required>
+                    <input type="hidden" value="update" name="update">
+                    <input type="hidden" value="{{a.message}}" name="talk">
+                    <input type="hidden" value="{{sender}}" name="sender">
+                    <input type="submit" value="編輯" name="submit"></td>
+            </form>
+            <td>
+                <form action="/personalpage/" method="POST" onsubmit="return confirm('Do you really want to delete?');">
+                    <input type="hidden" value="delete" name="delete">
+                    <input type="hidden" value="{{a.message}}" name="talk">
+                    <input type="hidden" value="{{sender}}" name="sender">
+                    <input type="submit" value="刪除" name="submit">
+                </form>
+            </td>
+        {% endfor %}
+    {% endif %}
+
+    </table>
+</body>
+
+</html

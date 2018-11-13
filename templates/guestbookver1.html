@@ -14,6 +14,9 @@
     <h1>歡迎來到孟哲網站T</h1>
     <h2>這周來看個database們<br>
     </h2>        
+    <form action = "/personalpage/" target = "_top" id="send-form" method="POST">
+        <input type="submit" id="submit" value="前往個人頁面">
+    </form>
     <div id="container">
     <div id="content">
         {% if request.user.is_authenticated %}

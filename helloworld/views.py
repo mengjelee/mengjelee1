@@ -27,17 +27,17 @@ def index(request):
 def login(request):
     msgs = TextMessage.objects.all()
     if request.user.is_authenticated: 
-        print("t1")
+        #print("t1")
         return render(request, 'guestbookver1.html',locals())
     if request.method == 'POST':
         if 'username' in request.POST:
-            print("t2")
+            #print("t2")
             username = request.POST['username']
             if 'password' in request.POST:
                 password = request.POST['password']
                 user = auth.authenticate(username=username, password=password)
                 auth.login(request,user)
-                print("8")
+                #print("8")
                 if user is not None:
                     if user.is_active:
                         auth.login(request,user)
@@ -74,11 +74,33 @@ def signup(request):
                     else:
                         message = '此使用者已經有人使用'
                         print("4")                  
-    return render(request, 'guestbookver1.html',locals())
-                        #else:
-                    #form = UserCreationForm()
-                    #print("2")
-    #return render(request, 'guestbook.html', {'form': form})
+    return render(request, 'guestbook.html',locals())
+
+def personalpage(request):
+    if request.user.is_authenticated:
+        sender = request.user
+    else:
+        message="你尚未登入"
+    if 'update' in request.POST:
+        #idex=request.POST['idex']
+        sender=request.POST['sender']
+        newtalk=request.POST['newtalk']
+        talk=request.POST['talk']
+        TextMessage.objects.filter(talker=sender,message=talk).update(message=newtalk)
+    if 'delete' in request.POST:
+        #idex=request.POST['idex']
+        sender=request.POST['sender']
+        talk=request.POST['talk']
+        TextMessage.objects.filter(talker=sender,message=talk).delete()
+    if 'search' in request.POST:
+        talk=request.POST['talk']
+        sender=request.POST['sender']
+        conversation=TextMessage.objects.filter(message__icontains=talk,talker=sender)
+        return render(request,'personalpage.html',locals())
+    conversation=TextMessage.objects.filter(talker=sender)
+    return render(request,'personalpage.html',locals())
+
+
 """
 隨機圖片碼
 random.seed('foobar')     # 設定 random seed
